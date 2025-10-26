@@ -1,0 +1,493 @@
+<!doctype html><meta charset=utf-8>
+
+<head>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="css/misc.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '');
+    </script>
+</head>
+
+<title>CoRL 2025 Submission #39</title>
+
+<div class="col-sm-12" style="text-align: center;">
+    <h1 class="name" style="font-family:'Inter';font-weight: 500;"><span>Skill-Aware Robotic Task Execution with </span><span>
+Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
+<h1 style="color:#5a6268;font-size: 1.25em;">*****</h1><br>
+
+        <div class="container my-2">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <a class="btn btn-light border rounded-pill px-4 py-2 shadow-sm mx-1"
+         href=""
+         target="_blank" rel="noopener">arXiv</a>
+    </div>
+    <div class="col-auto">
+      <a class="btn btn-light border rounded-pill px-4 py-2 shadow-sm mx-1"
+         href=""
+         target="_blank" rel="noopener">paper</a>
+    </div>
+    <div class="col-auto">
+      <a class="btn btn-light border rounded-pill px-4 py-2 shadow-sm mx-1"
+         href=""
+         target="_blank" rel="noopener">Code</a>
+    </div>
+  </div>
+</div>
+        
+            <div class="is-size-5 publication-authors">
+            <!-- <span class="author-block">
+            Jincheng Sun</a><sup>*1,2</sup>,</span> -->
+            <span class="author-block">
+            <a href="https://www.jcsun.cc/">Jincheng Sun</a><sup>*1</sup>,</span>
+            <span class="author-block">
+            <a href="https://yluo.name/">Yang Luo</a><sup>*2</sup>,</span>
+            <span class="author-block">
+            *****</a><sup>1</sup>,</span>
+            <span class="author-block">
+            *****</a><sup>1</sup>,</span>
+            <span class="author-block">
+            <!-- <a href="https://c7w.tech/">Huan-ang Gao</a><sup>1</sup>,</span>
+            <span class="author-block">
+            <a href="https://ziweiwangthu.github.io">Ziwei Wang</a><sup>3</sup>,</span>
+            <span class="author-block">
+            <a href="https://sites.google.com/view/fromandto">Hao Zhao</a><sup>^1,2</sup></span> -->
+            
+          </div>
+
+          <div class="is-size-5 publication-authors"></div><br/>
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>^</sup>Corresponding Author</span><br/>
+            <span class="author-block"><sup>1</sup>College of Information Science and Engineering, Northeastern University, Shenyang 110004, China</span><br/>
+            <span class="author-block"><sup>2</sup>State Key Laboratory o Robotics,Shenyang Institute of Automation,Chinese Academy of Sciences,Shenyang110016,China</span><br/>
+            <!-- <span class="author-block"><sup>3</sup>Nanyang Technological University</span><br/> -->
+            
+          </div>
+</div>
+
+<!-- Table of Contents -->
+<!-- <div class="col-sm-12" style="font-family:'Helvetica';text-align: center;">
+    <a style="font-family:'Inter';font-size:1.25em;">Paper Submission #39</a>
+    <br>
+    <a style="font-family:'Inter';font-size:1.15em;color:#4B9AE7">Anonymous Author(s)</a><br>
+
+    <a style="font-family:'Inter';font-size:1.05em;">Affiliation</a><br>
+
+</div> -->
+
+<!-- <div class="main"> -->
+    <section class="section" id="Abstract">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Abstract</h1>
+
+            <div class="col-12 text-center">
+                <p style="text-align:left;color: #000000";font-size: 0.7em;>
+                     In dynamic unstructured environments, achieving safe, scalable, and interpretable robotic skill execution remains a core bottleneck toward general-purpose embodied intelligence. Existing vision-language-action (VLA) paradigms typically employ end-to-end large models that map high-level task semantics directly to low-level action sequences. Their black-box nature limits interpretability, reduces skill reuse, and fails to provide deterministic guarantees in safety-critical scenarios. To overcome these limitations, we propose the Skill-Aware Robotic Task Execution(S-RTE) framework,  which establishes a skill perception-reasoning-execution loop for gray-box and safety-aware control. At its core, we introduce the Skill-Aware Executable-Semantic Descriptor (S-ESD), a unified representation that bridges low-level control APIs with high-level semantic descriptions, enabling structured skill retrieval and composition by large language models (LLMs). Building upon this representation, we design the Skill Perception Network (S-ESD-CLIP) that leverages vision-language embedding alignment to perceive the executability and progress status (not started / in progress / completed) of candidate skills in real time, effectively pruning unsafe or infeasible skills. Finally, a gray-box planner (CLIP-LLM) integrates perceived feasibility cues as constraints into the reasoning process, producing interpretable “skill-condition” plans that support dynamic task decomposition and closed-loop execution. Extensive real-world experiments demonstrate that S-RTE significantly improves safety, robustness, and skill scalability, while maintaining real-time inference on a single NVIDIA Jetson. The proposed framework offers a promising pathway toward deployable and interpretable embodied intelligence.
+                </p>
+            </div>
+        </div>
+       <div class="container text-center my-4">
+  <!-- 图片部分 -->
+  <div class="row justify-content-center mb-3">
+    <div class="col-10">
+      <img src="./srte.png" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
+    </div>
+  </div>
+
+  <!-- 文字部分 -->
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <p class="text-left" style="font-size: 1rem; line-height: 1.6;">
+        <strong style="color:black; font-weight:900;">Overview of the S-RTE framework.</strong>
+        (<strong style="color:black; font-weight:900;">a) Skill-Aware Executable-Semantic Descriptor (ESD):</strong>
+        Each skill is formalized as a structured five-tuple ⟨ID, Description, Model, State, Tag⟩, providing a unified representation of semantic abstraction and low-level control. Skills are acquired via imitation learning (IL), or end-to-end training, and stored in a modular skill library for retrieval and reuse.
+        (<strong style="color:black; font-weight:900;">b) S-ESD with CLIP (S-ESD-CLIP):</strong>
+        A lightweight multimodal perception module leveraging CLIP-based vision-language alignment evaluates the environmental executability of candidate skills in real time and updates stage-aware execution states (“not started,” “in progress,” “completed”), enabling dynamic pruning of infeasible actions.
+        (<strong style="color:black; font-weight:900;">c) CLIP-Guided Large Language Model Planner (S-CLIP-LLM):</strong>
+        High-level task planning incorporates the filtered skill set from S-ESD-CLIP as prior constraints for the LLM, generating sequential task plans with interpretable reasoning. The bottom-right illustration demonstrates two composite tasks—Task 1 (“place bottle → basket”) and Task 2 (“place cookie → plate”)—showing multi-skill sequential execution under closed-loop supervision.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+</section><br>
+<section class="section" id="Skill Perception Evaluation">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Skill Perception Evaluation</h1>
+
+            <div class="col-12 text-center">
+                <p style="text-align:left">
+                    In this section,We evaluate the S-ESD-CLIP model's skill perception using a bottle grasping task as a reference skill. The model predicts skill feasibility and execution stage under three experimental conditions: standard, cluttered, and occluded environments.
+                </p>
+            </div>
+
+ <div class="row justify-content-center mb-3">
+    <div class="col-10">
+      <img src="./S-ESD-CLIP.png" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
+    </div>
+  </div>
+
+  <!-- 文字部分 -->
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <p class="text-left" style="font-size: 1rem; line-height: 1.6;">
+        <strong style="color:black; font-weight:900;">Overview of the S-CLIP-LLM framework..</strong>
+        <!-- (<strong style="color:black; font-weight:900;">a) Skill-Aware Executable-Semantic Descriptor (ESD):</strong> -->
+        CLIP-Guided Large Language Model Planner integrates a dynamically filtered skill library (via S-ESD-CLIP) with LLM reasoning for long-horizon task planning. Given a user instruction, candidate skills are aligned with contextual constraints and skill execution states (“not started,” “in progress,” or “completed”) to generate a semantically valid and physically feasible skill sequence. The plan is executed through a hierarchical control framework, achieving interpretable, safe, and context-aware long-horizon task execution.
+        <!-- (<strong style="color:black; font-weight:900;">b) S-ESD with CLIP (S-ESD-CLIP):</strong>
+        A lightweight multimodal perception module leveraging CLIP-based vision-language alignment evaluates the environmental executability of candidate skills in real time and updates stage-aware execution states (“not started,” “in progress,” “completed”), enabling dynamic pruning of infeasible actions.
+        (<strong style="color:black; font-weight:900;">c) CLIP-Guided Large Language Model Planner (S-CLIP-LLM):</strong>
+        High-level task planning incorporates the filtered skill set from S-ESD-CLIP as prior constraints for the LLM, generating sequential task plans with interpretable reasoning. The bottom-right illustration demonstrates two composite tasks—Task 1 (“place bottle → basket”) and Task 2 (“place cookie → plate”)—showing multi-skill sequential execution under closed-loop supervision. -->
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<style>
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .no-gutters > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  video {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+  }
+  .video-title {
+    text-align: center;   /* 居中题目 */
+    margin-top: 0.5rem;   /* 跟视频留一点空隙 */
+    font-size: 1rem;
+    color: #333;
+  }
+</style>
+
+<div class="container text-center">
+  <div class="row no-gutters my-4">
+    <div class="col-4">
+      <video controls loop autoplay muted src="./videos/torque_demonstration/Charger_Plugging.mp4"></video>
+      <p class="video-title">Charger Plugging</p>
+    </div>
+    <div class="col-4">
+      <video controls loop autoplay muted src="./videos/torque_demonstration/USB_Plugging.mp4"></video>
+      <p class="video-title">USB Plugging</p>
+    </div>
+    <div class="col-4">
+      <video controls loop autoplay muted src="./videos/torque_demonstration/Button_Pushing.mp4"></video>
+      <p class="video-title">Button Pushing</p>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="Contact-Rich Tasks">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Contact-Rich Tasks</h1>
+
+            <div class="col-12 text-center">
+                <p style="text-align:left">
+                    In this section, we present five videos showcasing the performance of the torque-aware model in the following five contact-rich tasks: Button Pushing, Charger Plugging, USB Plugging, Door Opening, and Drawer Opening. These videos are played at 1x speed.
+                </p>
+            </div>
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Button Pushing</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/contact_rich/Button_Pushing.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Charger Plugging</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/contact_rich/Charger_Plugging.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">USB Plugging</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/contact_rich/USB_Plugging.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Socket Unplugging</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/contact_rich/Socket_Unplugging.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Door Handle Turning</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/contact_rich/Door_Handle_Turning.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+        </div>
+</section><br>
+
+<section class="section" id="Regular Tasks">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Regular Tasks</h1>
+
+            <div class="col-12 text-center">
+                <p style="text-align:left">
+                    In this section, we present five videos showcasing the performance of the torque-aware model in the following five regular tasks: Bottle Pick and Place, Liquid Pouring, Stacking Cubes, Push-to-Position, and Opening a Drawer. These videos are played at 1x speed.
+                </p>
+            </div>
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Bottle Pick and Place</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/regular/Bottle_Pick_and_Place.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Liquid Pouring</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/regular/Liquid_Pouring.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Stacking Cubes</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/regular/Stacking_Cubes.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Push-to-Position</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/regular/Push_to_Position.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+
+            
+
+            </div><br>
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Opening a Drawer</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/regular/Opening_a_Drawer.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+        </div>
+</section><br>
+
+<section class="section" id="Cross Embodiment">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Cross Embodiment</h1>
+
+            <div class="col-12 text-center">
+                <p style="text-align:left">
+                    In this section, we present a video demonstrating the performance of cross embodiment performance using the ROKAE SR robotic arm. The tasks include inserting a fast-charging connector and a slow-charging connector. The video is played at 1x speed.
+                </p>
+            </div>
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Inserting a Fast-Charging Connector</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/cross_embodiment/Fast_Charging.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="container text-center">
+                <div class="row align-items-center my-4">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-center">
+                        <h5 class="mt-2">Inserting a Slow-Charging Connector</h5>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-center"></div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-9 text-center">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video controls loop autoplay muted>
+                                        <source src="./videos/cross_embodiment/Slow_Charging.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                    </div>
+                </div>
+            </div><br>
+
+        </div>
+</section><br>
+
+<section class="section" id="Acknowledgements">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Citation</h1>
+            <p style="text-align:left">
+            We kindly request that you cite our work if you utilize the code or reference our findings in your research.</p>
+            <div class="col-12 text-center">
+                <pre style="text-align:left;color: #aaaaaa";font-size: 0.7em; class="pre">
+@article{zhang2025elucidating,
+  title={Skill-Aware Robotic Task Execution with Executable-Semantic Descriptors and CLIP-LLM Planning },
+  <!-- author={Zhang, Zongzheng and Xu, Haobo and Yang, Zhuo and Yue, Chenghao and Lin, Zehao and Gao, Huan-ang and Wang, Ziwei and Zhao, Hao},
+  journal={arXiv preprint arXiv:2509.07962}, -->
+  year={2025}
+}
+    </pre>
+</div>
+</div>
+<style>
+    pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+</style>
