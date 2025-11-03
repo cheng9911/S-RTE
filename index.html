@@ -53,7 +53,7 @@ Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
             <span class="author-block">
             <a href="https://www.jcsun.cc/">Jincheng Sun</a><sup>*1</sup>,</span>
             <span class="author-block">
-            <a href="https://yluo.name/">Yang Luo</a><sup>*2</sup>,</span>
+            <a href="https://yluo.name/">Yang Luo</a><sup>*1,2</sup>,</span>
             <span class="author-block">
             *****</a><sup>1,2</sup>,</span>
             <span class="author-block">
@@ -105,7 +105,7 @@ Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
   <!-- 图片部分 -->
   <div class="row justify-content-center mb-3">
     <div class="col-10">
-      <img src="./srte.png" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
+      <img src="./videos/srte.jpg" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
     </div>
   </div>
 
@@ -142,7 +142,7 @@ Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
 
  <div class="row justify-content-center mb-3">
     <div class="col-10">
-      <img src="./S-ESD-CLIP.png" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
+      <img src="./videos/S-ESD-CLIP.jpg" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
     </div>
   </div>
 
@@ -150,13 +150,14 @@ Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
   <div class="row justify-content-center">
     <div class="col-10">
       <p class="text-left" style="font-size: 1rem; line-height: 1.6;">
-        <strong style="color:black; font-weight:900;">Overview of the S-CLIP-LLM framework..</strong>
-        <!-- (<strong style="color:black; font-weight:900;">a) Skill-Aware Executable-Semantic Descriptor (ESD):</strong> -->
-        CLIP-Guided Large Language Model Planner integrates a dynamically filtered skill library (via S-ESD-CLIP) with LLM reasoning for long-horizon task planning. Given a user instruction, candidate skills are aligned with contextual constraints and skill execution states (“not started,” “in progress,” or “completed”) to generate a semantically valid and physically feasible skill sequence. The plan is executed through a hierarchical control framework, achieving interpretable, safe, and context-aware long-horizon task execution.
-        <!-- (<strong style="color:black; font-weight:900;">b) S-ESD with CLIP (S-ESD-CLIP):</strong>
-        A lightweight multimodal perception module leveraging CLIP-based vision-language alignment evaluates the environmental executability of candidate skills in real time and updates stage-aware execution states (“not started,” “in progress,” “completed”), enabling dynamic pruning of infeasible actions.
-        (<strong style="color:black; font-weight:900;">c) CLIP-Guided Large Language Model Planner (S-CLIP-LLM):</strong>
-        High-level task planning incorporates the filtered skill set from S-ESD-CLIP as prior constraints for the LLM, generating sequential task plans with interpretable reasoning. The bottom-right illustration demonstrates two composite tasks—Task 1 (“place bottle → basket”) and Task 2 (“place cookie → plate”)—showing multi-skill sequential execution under closed-loop supervision. -->
+        <strong style="color:black; font-weight:900;">Overview of the S-ESD-CLIP framework.</strong>
+        (<strong style="color:black; font-weight:900;">(a) Pre-training of S-ESD-CLIP:</strong>
+         Textual skill descriptions and visual observations are independently encoded by text and image encoders, 
+         and their similarity is computed through the CLIP model followed by softmax normalization.
+         (<strong style="color:black; font-weight:900;">(b) ESD-CLIP for skill selection:</strong> 
+           The module integrates current observations with the skill library to dynamically generate a subset of executable skills that guide downstream task execution. This mechanism ensures that only contextually feasible skills are selected, thereby enhancing the reliability of high-level planning and execution.
+        
+       
       </p>
     </div>
   </div>
@@ -190,12 +191,16 @@ Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
 
 <div class="container text-center">
   <div class="row no-gutters my-4">
-    <div class="col-6">
-      <video controls loop autoplay muted src="./videos/S-ESD-CLIP.mp4"></video>
+    <div class="col-4">
+      <video controls loop autoplay muted src="./videos/Standard_environment.mp4"></video>
       <p class="video-title">Standard environment</p>
     </div>
-    <div class="col-6">
+    <div class="col-4">
       <video controls loop autoplay muted src="./videos/Cluttered_env.mp4"></video>
+      <p class="video-title">Cluttered environment </p>
+    </div>
+    <div class="col-4">
+      <video controls loop autoplay muted src="./videos/Occluded_scenes.mp4"></video>
       <p class="video-title">Cluttered environment </p>
     </div>
     <!-- <div class="col-4">
@@ -205,12 +210,81 @@ Executable-Semantic Descriptors and CLIP-LLM Planning</span><br>
   </div>
 </div>
 
-<section class="section" id="Contact-Rich Tasks">
+<section class="section" id="LLM-guided hierarchical task planning">
         <div class="container text-center">
         <div class="container">
           
             <hr>
-            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Contact-Rich Tasks</h1>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">LLM-guided hierarchical task planning</h1>
+
+            <div class="col-12 text-center">
+                <p style="text-align:left">
+                   In this section, we present S-CLIP-LLM, a CLIP-guided Large Language Model Planner that integrates the dynamically filtered skill library from S-ESD-CLIP with LLM reasoning. This enables context-aware, goal-driven long-horizon task planning through semantically valid skill sequencing.
+            </div>
+
+ <div class="row justify-content-center mb-3">
+    <div class="col-10">
+      <img src="./videos/LLM_planer.jpg" alt="S-RTE Framework Overview" class="img-fluid rounded shadow">
+    </div>
+  </div>
+
+  <!-- 文字部分 -->
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <p class="text-left" style="font-size: 1rem; line-height: 1.6;">
+        <strong style="color:black; font-weight:900;">Overview of the S-CLIP-LLM framework.</strong>
+        <strong style="color:black; font-weight:900;">(a) Real-time skill perception with S-ESD-CLIP: </strong>
+         The module dynamically filters the skill library based on current observations, aligning visual context with textual skill representations to identify executable skills in real time. 
+         <strong style="color:black; font-weight:900;">(b) LLM-guided hierarchical task planning:</strong>
+          The CLIP-Guided Large Language Model Planner integrates the filtered skill set with LLM reasoning to generate semantically valid and physically feasible skill sequences. By considering skill execution states (“not started,” “in progress,” “completed”), it enables interpretable, safe, and context-aware long-horizon task execution.
+       
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<style>
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .no-gutters > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  video {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    border-radius: 10px;
+  }
+  .video-title {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+  }
+</style>
+
+<div class="container text-center">
+  <div class="row justify-content-center no-gutters my-4">
+    <div class="col-8">
+      <video controls loop autoplay muted src="./videos/software/20251103-223933.mp4"></video>
+      <p class="video-title">Perception + LLM Hierarchical Planning</p>
+    </div>
+  </div>
+</div>
+
+
+<section class="section" id="Overview of benchmark experimental comparison results">
+        <div class="container text-center">
+        <div class="container">
+          
+            <hr>
+            <h1 style="text-align:center; margin-top: 0pt; margin-bottom: 10pt;font-family:'Inter';">Overview of benchmark experimental comparison results</h1>
 
             <div class="col-12 text-center">
                 <p style="text-align:left">
