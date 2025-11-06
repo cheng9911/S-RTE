@@ -1,2 +1,4 @@
-#Skill-Aware Robotic Task Execution with Executable-Semantic Descriptors and CLIP-LLM Planning 
-A demonstration of our Skill-Aware Robotic Task Execution framework, integrating executable-semantic descriptors with CLIP-LLM planning for intelligent manipulation.
+# Skill-Aware Robotic Task Execution with Executable-Semantic Descriptors and CLIP-LLM Planning
+
+A demonstration of our **Skill-Aware Robotic Task Execution** framework, integrating **executable-semantic descriptors** with **CLIP-LLM planning** for intelligent and adaptive manipulation.
+
