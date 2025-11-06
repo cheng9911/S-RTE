@@ -1,2 +1,2 @@
-# Torque-Aware-VLA.github.io
-Elucidating the Design Space of Torque-aware Vision-Language-Action Models CoRL 2025 Project Page
+#Skill-Aware Robotic Task Execution with Executable-Semantic Descriptors and CLIP-LLM Planning 
+A demonstration of our Skill-Aware Robotic Task Execution framework, integrating executable-semantic descriptors with CLIP-LLM planning for intelligent manipulation.
